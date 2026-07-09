@@ -1,6 +1,7 @@
 package gianni_bussoletti.beu2s2g4exe.exceptions;
 
 import gianni_bussoletti.beu2s2g4exe.payloads.ErrorsDTO;
+import gianni_bussoletti.beu2s2g4exe.payloads.ErrorsWithListsDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -26,6 +27,14 @@ public class ErrorsHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorsDTO handleGenericException(Exception ex) {
+        ex.printStackTrace();
         return new ErrorsDTO("C'è stato un errore lato server", LocalDateTime.now());
     }
+
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorsWithListsDTO handleValidationError(ValidationException ex) {
+        return new ErrorsWithListsDTO(ex.getMessage(), LocalDateTime.now(), ex.getErrorsList());
+    }
+
 }

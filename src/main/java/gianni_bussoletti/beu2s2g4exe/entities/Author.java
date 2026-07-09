@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -27,12 +28,12 @@ public class Author {
     @Column(nullable = false, unique = true)
     private String email;
     @Column(name = "date_birth", nullable = false)
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     @Column(nullable = false)
     private String avatar;
 
 
-    public Author(String name, String surname, String dateOfBirth, String email) {
+    public Author(String name, String surname, LocalDate dateOfBirth, String email) {
         this.avatar = "https://picsum.photos/200";
         this.name = name;
         this.surname = surname;
