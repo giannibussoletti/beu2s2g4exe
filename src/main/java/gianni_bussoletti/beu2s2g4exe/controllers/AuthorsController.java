@@ -31,7 +31,7 @@ public class AuthorsController {
     @ResponseStatus(HttpStatus.CREATED)
     public AuthorResponseDTO saveAuthor(@RequestBody @Validated AuthorDTO payload, BindingResult validation) {
         if (validation.hasErrors()) {
-            List<String> errorsMessage = validation.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getCode).toList();
+            List<String> errorsMessage = validation.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
             throw new ValidationException(errorsMessage);
         }
         Author saved = this.authorsService.save(payload);
