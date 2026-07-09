@@ -44,7 +44,7 @@ public class AuthorsController {
     }
 
     @PatchMapping("/{authorId}/avatar")
-    public void updateProfilePic(@PathVariable UUID authorId, @RequestParam("profile_picture") MultipartFile file) {
-        this.authorsService.UpdateAvatarAuthor(authorId, file);
+    public Author updateProfilePic(@PathVariable UUID authorId, @RequestParam("profile_picture") MultipartFile file) {
+        return this.authorsService.UpdateAvatarAuthor(authorId, file);
     }
 }

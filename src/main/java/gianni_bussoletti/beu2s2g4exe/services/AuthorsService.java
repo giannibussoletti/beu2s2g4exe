@@ -45,11 +45,14 @@ public class AuthorsService {
 
     }
 
-    public void UpdateAvatarAuthor(UUID AuthorID, MultipartFile file) {
+    public Author UpdateAvatarAuthor(UUID AuthorID, MultipartFile file) {
         try {
             Map info = fileUploader.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
             String url = (String) info.get("secure_url");
-            this.findByID(AuthorID).setAvatar(url);
+            Author updateProfileAuthor = this.findByID(AuthorID);
+            updateProfileAuthor.setAvatar(url);
+            this.authorsRepository.save(updateProfileAuthor);
+            return updateProfileAuthor;
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
